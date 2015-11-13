@@ -24,6 +24,16 @@ class ViewController: UIViewController {
             doubleTap.numberOfTapsRequired = 2
             stackView.addGestureRecognizer(doubleTap)
         }
+        
+        
+        // example of adding subview to chartsStack that is not in the arrangedSubviews
+        let backgroundColor = UIView()
+        backgroundColor.translatesAutoresizingMaskIntoConstraints = false
+//        backgroundColor.backgroundColor = UIColor.grayColor()
+        chartsStack.insertSubview(backgroundColor, atIndex: 0)
+        
+        self.chartsStack.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-0-[back]-0-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["back": backgroundColor]))
+        self.chartsStack.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-0-[back]-0-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["back": backgroundColor]))
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -32,6 +42,10 @@ class ViewController: UIViewController {
             stackView.arrangedSubviews[1].hidden = true
             stackView.arrangedSubviews[1].alpha = 0
         }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
     }
     
     func doubleTap(gesture: UITapGestureRecognizer){
